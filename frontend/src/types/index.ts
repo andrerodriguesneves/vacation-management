@@ -1,40 +1,39 @@
-export type User = {
+export interface User {
   id: string;
-  name: string;
-  department: string;
   email: string;
-  role: 'employee' | 'manager';
-  createdAt: Date;
-};
+  name: string;
+  role: 'admin' | 'user';
+  department?: string;
+  position?: string;
+  created_at: string;
+}
 
-export type VacationPeriod = {
+export interface VacationPeriod {
   id: string;
-  userId: string;
-  startDate: Date;
-  endDate: Date;
-  duration: number;
+  user_id: string;
+  start_date: string;
+  end_date: string;
   status: 'pending' | 'approved' | 'rejected';
-  year: number;
-  createdAt: Date;
-  updatedAt: Date;
-  notes?: string;
-};
+  created_at: string;
+}
 
-export type SystemConfig = {
-  currentYear: number;
+export interface SystemConfig {
+  vacationDaysPerYear: number;
+  minVacationDays: number;
+  maxVacationDays: number;
   notificationEmail: string;
-};
+}
 
-export type VacationContext = {
-  users: User[];
+export interface VacationContextType {
+  user: User | null;
   vacationPeriods: VacationPeriod[];
   systemConfig: SystemConfig;
-  addUser: (user: Omit<User, 'id' | 'createdAt'>) => void;
-  updateUser: (id: string, data: Partial<User>) => void;
-  deleteUser: (id: string) => void;
-  addVacationPeriod: (period: Omit<VacationPeriod, 'id' | 'createdAt' | 'updatedAt'>) => void;
-  updateVacationPeriod: (id: string, data: Partial<VacationPeriod>) => void;
-  deleteVacationPeriod: (id: string) => void;
-  updateVacationStatus: (id: string, status: VacationPeriod['status'], notes?: string) => void;
-  updateSystemConfig: (config: Partial<SystemConfig>) => void;
-};
+  loading: boolean;
+  error: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  createVacationPeriod: (period: Omit<VacationPeriod, 'id' | 'created_at'>) => Promise<void>;
+  updateVacationPeriod: (id: string, status: VacationPeriod['status']) => Promise<void>;
+  deleteVacationPeriod: (id: string) => Promise<void>;
+  updateSystemConfig: (config: Partial<SystemConfig>) => Promise<void>;
+}
