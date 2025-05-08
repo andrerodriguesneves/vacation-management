@@ -1,18 +1,13 @@
 {
   "name": "vacation-management",
   "version": "1.0.0",
-  "description": "Sistema de gerenciamento de férias",
+  "private": true,
   "scripts": {
-    "frontend:dev": "cd frontend && npm run dev",
-    "frontend:build": "cd frontend && npm run build",
-    "frontend:preview": "cd frontend && npm run preview",
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "dev": "npm run frontend:dev"
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev",
+    "start": "cd frontend && npm run preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^8.2.2"
+  "engines": {
+    "node": ">=18.0.0"
   }
 } 
